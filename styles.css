@@ -1,0 +1,132 @@
+/* quit-smoking-bd -- styles (pure ASCII, zero network requests) */
+:root {
+  --green: #1b7a4d;
+  --green-dark: #145c3a;
+  --green-soft: #e6f4ec;
+  --ink: #1c2b22;
+  --muted: #5c6b61;
+  --line: #d8e2da;
+  --card: #ffffff;
+  --bg: #f4f7f5;
+  --warn: #b45309;
+  --danger: #b91c1c;
+  --ok: #1b7a4d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+.top { background: var(--green); color: #fff; padding: 24px 0 20px; }
+.top h1 { margin: 0 0 6px; font-size: 28px; }
+.top p { margin: 0; opacity: .92; max-width: 560px; }
+.lang-btn {
+  margin-top: 14px;
+  background: #fff; color: var(--green-dark);
+  border: none; border-radius: 999px; padding: 8px 18px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+}
+.tabs {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 14px 16px 0;
+}
+.tabs button {
+  flex: 1 1 auto;
+  background: #fff; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 10px 10px 0 0;
+  padding: 10px 8px; font-size: 15px; cursor: pointer;
+}
+.tabs button.active {
+  background: var(--green); color: #fff; border-color: var(--green);
+  font-weight: 700;
+}
+main { padding: 16px 0 8px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.card h2 { margin: 0 0 12px; font-size: 20px; }
+.card h3 { margin: 18px 0 6px; font-size: 16px; }
+label { display: block; font-weight: 600; margin: 12px 0 4px; }
+label.radio { display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 6px 0; }
+input[type="text"], input[type="number"], input[type="datetime-local"],
+select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+}
+fieldset { border: 1px solid var(--line); border-radius: 10px; margin: 12px 0; padding: 8px 12px; }
+legend { font-weight: 600; padding: 0 6px; }
+.hint { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+.muted { color: var(--muted); }
+.error { color: var(--danger); font-size: 14px; margin: 6px 0 0; }
+.ok { color: var(--ok); font-weight: 600; }
+.btn {
+  display: inline-block;
+  margin: 12px 8px 0 0;
+  padding: 11px 18px;
+  font-size: 15px; font-weight: 700;
+  border-radius: 10px; border: 1px solid var(--line);
+  background: #fff; color: var(--ink); cursor: pointer;
+}
+.btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+.btn.primary:hover { background: var(--green-dark); }
+.btn.warn { border-color: var(--warn); color: var(--warn); }
+.btn.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.stat {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.stat:last-child { border-bottom: none; }
+.stat-label { color: var(--muted); }
+.stat-value { font-weight: 700; text-align: right; }
+.timer {
+  font-size: 56px; font-weight: 800; text-align: center;
+  color: var(--green-dark); font-variant-numeric: tabular-nums;
+  margin: 8px 0 0;
+}
+.phase { text-align: center; font-size: 20px; font-weight: 700; min-height: 30px; margin: 4px 0 10px; }
+.bar {
+  height: 12px; background: var(--green-soft);
+  border-radius: 999px; overflow: hidden; margin: 10px 0;
+}
+.bar-fill { height: 100%; width: 0; background: var(--green); transition: width .3s; }
+.milestones { list-style: none; margin: 0; padding: 0; }
+.milestone {
+  border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; margin-bottom: 10px;
+  background: #fff;
+}
+.milestone.reached { background: var(--green-soft); border-color: var(--green); }
+.milestone strong { display: block; font-size: 16px; }
+.milestone p { margin: 4px 0 0; color: var(--muted); }
+.ms-badge {
+  float: right; font-size: 13px; font-weight: 700;
+  color: var(--green-dark);
+}
+.loglist { list-style: none; margin: 0; padding: 0; }
+.loglist li {
+  padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+}
+.loglist li:last-child { border-bottom: none; }
+footer { padding: 8px 0 32px; font-size: 13px; }
+@media (max-width: 390px) {
+  .top h1 { font-size: 24px; }
+  .timer { font-size: 48px; }
+  .tabs button { font-size: 14px; padding: 10px 4px; }
+}

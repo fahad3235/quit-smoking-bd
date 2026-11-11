@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quit Smoking BD</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1 id="title" data-i18n="title">Quit Smoking BD</h1>
+    <p id="subtitle" data-i18n="subtitle">Your smoke-free journey: days, money saved and health milestones. Fully offline - your data never leaves your device.</p>
+    <button id="langBtn" class="lang-btn" type="button">&#2476;&#2494;&#2434;&#2482;&#2494;</button>
+  </div>
+</header>
+
+<nav class="tabs wrap" aria-label="Sections">
+  <button type="button" data-tab="dash" class="active" data-i18n="tab_dash">Dashboard</button>
+  <button type="button" data-tab="health" data-i18n="tab_health">Health</button>
+  <button type="button" data-tab="cravings" data-i18n="tab_cravings">Cravings</button>
+  <button type="button" data-tab="data" data-i18n="tab_data">Data &amp; Settings</button>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============ DASHBOARD ============ -->
+  <section id="tab-dash" class="tabpage">
+    <div class="card">
+      <h2 data-i18n="setupTitle">Your quit plan</h2>
+      <label for="quitInput" data-i18n="quitLabel">Quit date &amp; time</label>
+      <input id="quitInput" type="datetime-local">
+      <p class="hint" data-i18n="quitHint">When you smoked your last cigarette.</p>
+      <p id="quitError" class="error" hidden></p>
+
+      <label for="cigsInput" data-i18n="cigsLabel">Cigarettes per day (before quitting)</label>
+      <input id="cigsInput" type="number" min="1" max="100" inputmode="numeric">
+      <p class="hint" data-i18n="cigsHint">How many you used to smoke on a normal day.</p>
+      <p id="cigsError" class="error" hidden></p>
+
+      <label for="packPriceInput" data-i18n="packPriceLabel">Price of one pack (Tk)</label>
+      <input id="packPriceInput" type="text" inputmode="decimal">
+      <p class="hint" data-i18n="packPriceHint">What one pack cost you. Used only to work out money saved.</p>
+      <p id="packPriceError" class="error" hidden></p>
+
+      <label for="packSizeInput" data-i18n="packSizeLabel">Cigarettes in a pack</label>
+      <input id="packSizeInput" type="number" min="1" max="100" inputmode="numeric">
+      <p class="hint" data-i18n="packSizeHint">Usually 20.</p>
+      <p id="packSizeError" class="error" hidden></p>
+
+      <button id="saveSetupBtn" class="btn primary" type="button" data-i18n="saveSetup">Save my quit plan</button>
+      <p id="setupMsg" class="ok" hidden data-i18n="setupSaved">Quit plan saved. Your smoke-free clock is running.</p>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="statsTitle">Your progress so far</h2>
+      <p id="statsEmpty" class="muted" data-i18n="statsEmpty">Save your quit plan above to start your smoke-free clock.</p>
+      <div id="statsContent" hidden>
+        <div class="stat"><span class="stat-label" data-i18n="statTime">Smoke-free for</span><span class="stat-value" id="statTime">-</span></div>
+        <div class="stat"><span class="stat-label" data-i18n="statCigs">Cigarettes not smoked</span><span class="stat-value" id="statCigs">-</span></div>
+        <div class="stat"><span class="stat-label" data-i18n="statMoney">Money saved</span><span class="stat-value" id="statMoney">-</span></div>
+        <div class="stat"><span class="stat-label" data-i18n="statNext">Next milestone</span><span class="stat-value" id="statNext">-</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="goalTitle">Reward goal</h2>
+      <label for="goalNameInput" data-i18n="goalNameLabel">What will you buy with the savings?</label>
+      <input id="goalNameInput" type="text" maxlength="60" data-i18n-ph="goalNamePh" placeholder="e.g. A new phone">
+      <p id="goalNameError" class="error" hidden></p>
+      <label for="goalTargetInput" data-i18n="goalTargetLabel">Target amount (Tk)</label>
+      <input id="goalTargetInput" type="text" inputmode="decimal">
+      <p id="goalTargetError" class="error" hidden></p>
+      <button id="goalSaveBtn" class="btn primary" type="button" data-i18n="goalSave">Save goal</button>
+      <p id="goalMsg" class="ok" hidden data-i18n="goalSaved">Goal saved.</p>
+      <p id="goalEmpty" class="muted" data-i18n="noGoalYet">No goal set yet.</p>
+      <div id="goalContent" hidden>
+        <p><strong id="goalName"></strong></p>
+        <div class="bar"><div id="goalBar" class="bar-fill"></div></div>
+        <p id="goalText" class="muted"></p>
+        <p id="goalReachedMsg" class="ok" hidden data-i18n="goalReached">Goal reached! Enjoy your reward.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HEALTH ============ -->
+  <section id="tab-health" class="tabpage" hidden>
+    <div class="card">
+      <h2 data-i18n="healthTitle">How your body recovers</h2>
+      <p class="muted" data-i18n="healthIntro">Milestones from the U.S. Surgeon General's 2004 report (CDC). Averages for large groups - your own recovery depends on how long and how much you smoked.</p>
+      <ul id="milestoneList" class="milestones"></ul>
+    </div>
+  </section>
+
+  <!-- ============ CRAVINGS ============ -->
+  <section id="tab-cravings" class="tabpage" hidden>
+    <div class="card">
+      <h2 data-i18n="cravingTitle">Beat a craving</h2>
+      <p class="muted" data-i18n="cravingIntro">A craving usually peaks and fades in about 5 minutes. Breathe through it.</p>
+      <div id="timerDisplay" class="timer">05:00</div>
+      <p id="timerPhase" class="phase"></p>
+      <div class="bar"><div id="timerBar" class="bar-fill"></div></div>
+      <button id="startTimerBtn" class="btn primary" type="button" data-i18n="startTimer">Start 5-minute timer</button>
+      <button id="stopTimerBtn" class="btn" type="button" hidden data-i18n="stopTimer">Stop timer</button>
+      <p id="timerDone" class="ok" hidden data-i18n="timerDone">You did it - the craving has passed.</p>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="logTitle">Log a craving</h2>
+      <label for="triggerSelect" data-i18n="triggerLabel">What triggered it?</label>
+      <select id="triggerSelect"></select>
+      <p id="triggerError" class="error" hidden></p>
+      <label for="intensityInput" data-i18n="intensityLabel">How strong? (1-5)</label>
+      <input id="intensityInput" type="number" min="1" max="5" value="3" inputmode="numeric">
+      <p id="intensityError" class="error" hidden></p>
+      <fieldset>
+        <legend data-i18n="beatenLabel">Did you beat it?</legend>
+        <label class="radio"><input type="radio" name="beaten" value="yes" checked> <span data-i18n="beatenYes">Yes - I did not smoke</span></label>
+        <label class="radio"><input type="radio" name="beaten" value="no"> <span data-i18n="beatenNo">No - I smoked</span></label>
+      </fieldset>
+      <p id="beatenError" class="error" hidden></p>
+      <button id="logBtn" class="btn primary" type="button" data-i18n="logBtn">Log craving</button>
+      <p id="logMsg" class="ok" hidden data-i18n="logSaved">Craving logged.</p>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="todayTitle">Today</h2>
+      <div class="stat"><span class="stat-label" data-i18n="todayCravings">Cravings logged</span><span class="stat-value" id="todayCravings">0</span></div>
+      <div class="stat"><span class="stat-label" data-i18n="todayBeaten">Beaten</span><span class="stat-value" id="todayBeaten">0</span></div>
+      <div class="stat"><span class="stat-label" data-i18n="todaySmoked">Cigarettes smoked</span><span class="stat-value" id="todaySmoked">0</span></div>
+      <button id="slipBtn" class="btn warn" type="button" data-i18n="slipBtn">I smoked - log a slip</button>
+      <p id="slipMsg" class="ok" hidden data-i18n="slipConfirm">Logged. One slip does not erase your progress - keep going.</p>
+      <button id="restartBtn" class="btn" type="button" data-i18n="restartBtn">Restart my quit date from now</button>
+      <p id="restartMsg" class="ok" hidden data-i18n="restartConfirm">Your quit date is now reset. Every fresh start counts.</p>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="logListTitle">Craving log</h2>
+      <p id="logEmpty" class="muted" data-i18n="logEmpty">No cravings logged yet.</p>
+      <ul id="logList" class="loglist"></ul>
+    </div>
+  </section>
+
+  <!-- ============ DATA ============ -->
+  <section id="tab-data" class="tabpage" hidden>
+    <div class="card">
+      <h2 data-i18n="dataTitle">Your data</h2>
+      <h3 data-i18n="exportTitle">Export</h3>
+      <p class="hint" data-i18n="exportHint">Copy your data as JSON, or download it. Keep the file somewhere safe.</p>
+      <textarea id="exportText" readonly rows="6"></textarea>
+      <button id="copyBtn" class="btn" type="button" data-i18n="copyBtn">Copy JSON</button>
+      <button id="downloadBtn" class="btn" type="button" data-i18n="downloadBtn">Download JSON</button>
+      <p id="copiedMsg" class="ok" hidden data-i18n="copiedMsg">Copied to clipboard.</p>
+
+      <h3 data-i18n="importTitle">Import</h3>
+      <p class="hint" data-i18n="importHint">Paste a JSON file exported from this app.</p>
+      <textarea id="importText" rows="4"></textarea>
+      <button id="importBtn" class="btn primary" type="button" data-i18n="importBtn">Import data</button>
+      <p id="importOk" class="ok" hidden data-i18n="importOk">Import complete.</p>
+      <p id="importFail" class="error" hidden data-i18n="importFail">That file is not valid quit-smoking-bd data.</p>
+
+      <h3 data-i18n="eraseTitle">Erase everything</h3>
+      <p class="hint" data-i18n="eraseHint">Type DELETE in the box to erase all your quit plan, logs and goal. This cannot be undone.</p>
+      <input id="eraseInput" type="text" autocomplete="off">
+      <button id="eraseBtn" class="btn danger" type="button" data-i18n="eraseBtn">Erase all data</button>
+      <p id="eraseWrong" class="error" hidden data-i18n="eraseWrong">Type DELETE exactly to erase.</p>
+      <p id="erasedMsg" class="ok" hidden data-i18n="erasedMsg">All data erased.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p id="footerText" class="muted" data-i18n="footer">This app is a personal tracker, not medical advice. If quitting feels hard, talk to a doctor or your nearest health centre. Health milestones: U.S. Surgeon General's 2004 report (CDC). Money saved is an estimate from the numbers you entered.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
